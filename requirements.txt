@@ -1,0 +1,9 @@
+numpy
+pandas
+matplotlib=
+plotly
+yfinance
+streamlit
+requests
+redditwarp
+plotly
