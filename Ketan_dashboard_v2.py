@@ -432,7 +432,7 @@ def render_tab3():
     # Convert datetime column names to strings and remove timestamp
     statement_data.columns = statement_data.columns.astype(str).str.split(' ').str[0]
     
-    st.dataframe(statement_data)
+    st.dataframe(statement_data, width=1200)
     
             
 #==============================================================================
