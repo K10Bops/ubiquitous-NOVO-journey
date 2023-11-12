@@ -195,7 +195,7 @@ def render_tab1():
         if time_range == "1M":
             start_date = datetime.today().date() - timedelta(days=30)
         elif time_range == "3M":
-            start_date = datetime.today().date() - timedelta(days=30)
+            start_date = datetime.today().date() - timedelta(days=90)
         elif time_range == "6M":
             start_date = datetime.today().date() - timedelta(days=180)
         elif time_range == "YTD":
@@ -340,9 +340,9 @@ def render_tab2():
         # Add a check box to show/hide data
     col2a, col2b = st.columns([0.5,2])
     with col2a:
-        dropdown = st.selectbox('Chart Type',('Line', 'Candlestick', 'Areachart'), key='tab2chart')
+        dropdown = st.selectbox('Chart Type',('Line', 'Candlestick'), key='tab2chart')
     with col2b:
-        time_range = st.radio("Select Time Range", [ "Date Range", "1M","3M", "6M", "YTD", "1Y", "3Y", "5Y", "Max"], index=0, key="tab2line",horizontal=True )
+        time_range = st.radio("Select Time Range", [ "Date Range", "1M","3M", "6M", "YTD", "1Y", "3Y", "5Y", "Max"], index=3, key="tab2line",horizontal=True )
     # the time intervals is fixed at 1 Day
     show_data_table = st.checkbox("Show data table", key='checkboxtab2')
     if show_data_table:
@@ -361,7 +361,7 @@ def render_tab2():
     elif time_range == "1M":
         start_date = datetime.today().date() - timedelta(days=30)
     elif time_range == "3M":
-        start_date = datetime.today().date() - timedelta(days=30)
+        start_date = datetime.today().date() - timedelta(days=90)
     elif time_range == "6M":
         start_date = datetime.today().date() - timedelta(days=180)
     elif time_range == "YTD":
@@ -378,13 +378,15 @@ def render_tab2():
     if ticker != '':
         stock_price = GetStockData(ticker, start_date, end_date)
         if dropdown == "Line":
-            st.write('**Line Chart of** ' + ticker)
+            st.write('**Stock Price Line Chart of** ' + ticker)
             fig = go.Figure()
             fig.add_trace(go.Scatter(x=stock_price['Date'], y=stock_price['Close'], mode='lines', name='Stock Price', line=dict(color='Violet')))
-            fig.update_layout(title='Stock Price Line Chart', xaxis_title='Date', yaxis_title='Close Price', width = 200)
+            fig.update_layout(title='', xaxis_title='Date', yaxis_title='Close Price', width = 200)
+            sma_50 = stock_price['Close'].rolling(window=50).mean()
+            fig.add_trace(go.Scatter(x=stock_price['Date'], y=sma_50, mode='lines', name='50-day SMA', line=dict(color='Orange')))
             st.plotly_chart(fig, use_container_width=True)   
         elif dropdown == "Candlestick":
-            st.write('**Candlestick Chart**')       
+            st.write('**Stock Price Candlestick Chart of** ' + ticker)       
             fig = go.Figure(data=[go.Candlestick(
             x=stock_price['Date'],
             open=stock_price['Open'],
@@ -392,12 +394,7 @@ def render_tab2():
             low=stock_price['Low'],
             close=stock_price['Close'])])
             st.plotly_chart(fig, use_container_width=True)
-        elif dropdown == "Areachart":
-            st.write('**Area Chart of** ' + ticker)
-            fig = go.Figure()
-            fig.add_trace(go.Scatter(x=stock_price['Date'], y=stock_price['Close'], fill='tozeroy', mode='none', name='Stock Price'))
-            fig.update_layout(title='Stock Price Area Chart', xaxis_title='Date', yaxis_title='Close Price', width = 200)
-            st.plotly_chart(fig, use_container_width=True)
+
 
 #==============================================================================
 # Tab 3
@@ -571,9 +568,9 @@ def render_tab5():
         
         
         
-        
+    st.divider()
  #--------------Part 1----------------------------------------------         
-    
+    col1, col2 = st.columns(2)
     client = redditwarp.SYNC.Client()
     
     # Display the first 5 submissions on the r/Fire subreddit.
@@ -585,12 +582,12 @@ def render_tab5():
         'Upvotes': [subm.score for subm in fire_list],
         'Title': [subm.title for subm in fire_list],
     }
+    with col1:
+        fire_df = pd.DataFrame(fire_data)
     
-    fire_df = pd.DataFrame(fire_data)
-    
-    # Display the table for r/Fire subreddit
-    st.subheader("Fire News : Reddit")
-    st.dataframe(fire_df, hide_index=True)
+        # Display the table for r/Fire subreddit
+        st.subheader("Fire News : Reddit")
+        st.dataframe(fire_df, hide_index=True)
     
     # Display the first 5 submissions on the r/WorldNews subreddit.
     worldnews_submissions = client.p.subreddit.pull.hot('WorldNews', amount=5)
@@ -601,12 +598,12 @@ def render_tab5():
         'Upvotes': [subm.score for subm in worldnews_list],
         'Title': [subm.title for subm in worldnews_list],
     }
+    with col2:
+        worldnews_df = pd.DataFrame(worldnews_data)
     
-    worldnews_df = pd.DataFrame(worldnews_data)
-    
-    # Display the table for r/WorldNews subreddit
-    st.subheader("Worldnews : Reddit")
-    st.dataframe(worldnews_df, hide_index=True)
+        # Display the table for r/WorldNews subreddit
+        st.subheader("Worldnews : Reddit")
+        st.dataframe(worldnews_df, hide_index=True)
     
     
     #ADD HORIZONTAL sliding news
@@ -667,17 +664,18 @@ with tab5:
     
     
     
-# Customize the dashboard with CSS
-st.markdown(
-    """
-    <style>
-        .stApp {
-            background: #F0F8FF;
-        }
-    </style>
-    """,
-    unsafe_allow_html=True,
-)
+# # Customize the dashboard with CSS
+# st.markdown(
+#     """
+#     <style>
+#         .stApp {
+#             background: #F0F8FF;
+#             text: #000000;
+#         }
+#     </style>
+#     """,
+#     unsafe_allow_html=True,
+# )
 
 cola, colb, colc = st.columns(3,gap="medium")
 with colb:  
