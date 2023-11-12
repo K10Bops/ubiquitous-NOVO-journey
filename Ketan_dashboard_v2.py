@@ -154,7 +154,7 @@ st.sidebar.markdown('---')  # Add a horizontal line for separation
 
 start_date = datetime.today().date() - timedelta(days=30)
 end_date = datetime.today().date()
-click = st.sidebar.button("Refresh", key = 'refreshButton' )
+click = st.sidebar.button("Refresh")
 if click:
     yf.Ticker(ticker).history(period='1d')
     GetStockData(ticker, start_date, end_date)
