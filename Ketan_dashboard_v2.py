@@ -113,17 +113,9 @@ class YFinance:
         return ret
 #==============================================================================
 
-# Check if 'refreshButton' already exists in session_state
-# If not, then initialize it
-if 'refreshButton' not in st.session_state:
-    st.session_state.refreshButton = set()
-
-
-
-
 ticker_list = pd.read_html('https://en.wikipedia.org/wiki/List_of_S%26P_500_companies')[0]['Symbol']      
-ticker_key = "unique_ticker_key"  # Unique key for the ticker selectbox
-ticker = st.sidebar.selectbox("Ticker", ticker_list, key=ticker_key)
+#ticker_key = "unique_ticker_key"  # Unique key for the ticker selectbox , key=ticker_key
+ticker = st.sidebar.selectbox("Ticker", ticker_list)
 
 def render_header():
     
