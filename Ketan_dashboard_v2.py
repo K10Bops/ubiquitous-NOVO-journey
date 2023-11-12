@@ -513,7 +513,7 @@ def render_tab5():
 
         return fig
 
-    st.title("Financial Independence Retirement Calculator")
+    st.subheader("Financial Independence Retirement Calculator & Latest News")
 
     # User inputs
     monthly_expenses = st.number_input("Monthly Expenses ($)", min_value=1, value=3000)
