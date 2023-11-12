@@ -679,7 +679,7 @@ with tab5:
 
 cola, colb, colc = st.columns(3,gap="medium")
 with colb:  
-    st.sidebar.image('./img/yahoo_finance.png', width=100)   
+    st.sidebar.image('./yahoo_finance.png', width=100)   
     
     
 ###############################################################################
