@@ -17,7 +17,8 @@ import urllib
 from plotly.subplots import make_subplots
 from datetime import datetime, timedelta
 
-st.set_option('deprecation.showPyplotGlobalUse', False)
+st.set_option('deprecation.showPyplotGlobalUse', False )
+st.set_page_config(layout='wide')
 #==============================================================================
 # HOT FIX FOR YFINANCE .INFO METHOD
 # Ref: https://github.com/ranaroussi/yfinance/issues/1729
