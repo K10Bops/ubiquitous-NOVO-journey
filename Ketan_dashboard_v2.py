@@ -116,7 +116,7 @@ class YFinance:
 
 ticker_list = pd.read_html('https://en.wikipedia.org/wiki/List_of_S%26P_500_companies')[0]['Symbol']      
 #ticker_key = "unique_ticker_key"  # Unique key for the ticker selectbox , key=ticker_key
-ticker = st.sidebar.selectbox("Ticker", ticker_list)
+ticker = st.sidebar.selectbox("Choose Your Stock", ticker_list)
 
 def render_header():
     
