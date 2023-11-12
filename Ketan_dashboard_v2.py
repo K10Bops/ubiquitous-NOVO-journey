@@ -622,7 +622,7 @@ css = """
 st.markdown(css, unsafe_allow_html=True)
 
 # News content
-news_content = ["All Rights Resrved by Yahoo Brands Features"]
+news_content = ["All Rights Reserved by Yahoo Brands Features"]
 
 # Join news items with a space
 news_text = " ".join(news_content)
@@ -640,7 +640,7 @@ st.markdown(f'<div class="marquee">{news_text}</div>', unsafe_allow_html=True)
 # Render the header
 render_header()
 
-# render_sidebar()
+
 
 # Render the tabs
 tab1, tab2, tab3, tab4, tab5 = st.tabs(["Summary", "Chart", "Financials", "Monte Carlo simulation", "Goal to FIRE"])
@@ -657,19 +657,6 @@ with tab5:
     
     
     
-# # Customize the dashboard with CSS
-# st.markdown(
-#     """
-#     <style>
-#         .stApp {
-#             background: #F0F8FF;
-#             text: #000000;
-#         }
-#     </style>
-#     """,
-#     unsafe_allow_html=True,
-# )
-
 cola, colb, colc = st.columns(3,gap="medium")
 with colb:  
     st.sidebar.image('yahoo_finance.png', width=100)   
