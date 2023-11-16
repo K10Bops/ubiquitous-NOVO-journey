@@ -8,10 +8,8 @@ A comprehensive dashboard for analyzing financial data using Yahoo Finance API a
 - [Introduction](#introduction)
 - [Libraries Used](#libraries-used)
 - [Features](#features)
-- [Installation](#installation)
 - [Usage](#usage)
 - [Screenshots](#screenshots)
-- [Contributing](#contributing)
 - [License](#license)
 
 ## Introduction
